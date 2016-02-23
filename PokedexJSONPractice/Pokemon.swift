@@ -24,9 +24,9 @@ struct Pokemon {
     
     
     init?(jsonDictionary: [String: AnyObject]){
-        guard let id = jsonDictionary[kID] as? String else { return nil }
-        self.id = id
-        self.name = jsonDictionary[kName] as? String ?? ""
+        guard let name = jsonDictionary[kName] as? String else { return nil }
+        self.id = jsonDictionary[kID] as? String ?? ""
+        self.name = name
         self.baseExp = jsonDictionary[kBaseEXP] as? String ?? ""
         self.height = jsonDictionary[kHeight] as? String ?? ""
         self.weight = jsonDictionary[kWeight] as? String ?? ""

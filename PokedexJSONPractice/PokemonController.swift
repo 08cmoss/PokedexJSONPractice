@@ -8,15 +8,16 @@
 
 import Foundation
 
-class PokemonController {
+class PokemonController: NSObject {
     
     static let kBaseURLString = "http://pokeapi.co/api/v2/pokemon/"
     
     static func getPokemonFromSearchTerm(searchTerm: String, completion: (pokemon: Pokemon?) -> Void) {
+
         
-        let pokeSearchURLString = PokemonController.kBaseURLString + searchTerm
-        let url = NSURL(string: pokeSearchURLString)
-        NetworkController.dataAtURL(url!) { (data) -> Void in
+        let pokeSearchURLString = PokemonController.kBaseURLString + searchTerm.lowercaseString; print("\(pokeSearchURLString)")
+        let url = NSURL(string: pokeSearchURLString)!; print("\(url)")
+        NetworkController.dataAtURL(url) { (data) -> Void in
             guard let data = data else {
                 print("no data return")
                 completion(pokemon: nil)
