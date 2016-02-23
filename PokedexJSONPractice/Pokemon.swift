@@ -12,11 +12,17 @@ struct Pokemon {
     
     let name: String
     let id: Int
+    let baseExp: Int
+    let height: Int
+    let weight: Int
     
     init?(jsonDictionary: [String: AnyObject]){
         guard let name = jsonDictionary["name"] as? String else { return nil }
         self.name = name
-        self.id = (jsonDictionary["id"] as! Int)
+        self.id = jsonDictionary["id"] as? Int ?? 0
+        self.baseExp = jsonDictionary["base_experience"] as? Int ?? 0
+        self.height = jsonDictionary["height"] as? Int ?? 0
+        self.weight = jsonDictionary["weight"] as? Int ?? 0
         
     }
     

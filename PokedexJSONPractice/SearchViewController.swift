@@ -17,6 +17,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     
     var pokemon = Pokemon?()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,11 +27,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         searchBar.resignFirstResponder()
         guard let searchTerm = searchBar.text else { return }
         PokemonController.getPokemon(searchTerm) { (pokemon) -> Void in
-            self.pokemon = pokemon
+            guard let pokeResult = pokemon else { return }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.pokemonNameLabel.text = pokemon?.name
-                self.pokemonIDLabel.text = String(pokemon?.id)
+                
+                self.pokemonNameLabel.text = pokeResult.name
+                self.pokemonIDLabel.text = "ID: \(pokeResult.id)"
+                self.PokemonExperienceLabel.text = "Exp: \(pokeResult.baseExp)"
+                self.pokemonHeightLabel.text = "Height: \(pokeResult.height)"
+                self.pokemonWeightLabel.text = "Weight: \(pokeResult.weight)"
             })
             
         }
