@@ -37,12 +37,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
                 self.PokemonExperienceLabel.text = "Experience: \(pokeResult.baseExp)"
                 self.pokemonHeightLabel.text = "Height: \(pokeResult.height)"
                 self.pokemonWeightLabel.text = "Weight: \(pokeResult.weight)"
-                self.imageView.image = UIImage(named: pokeResult.name)
+                self.imageView.image = UIImage(named: "\(pokeResult.id)")
                 
                 
-//                if let state = rep.state {
-//                    cell.imageView?.image = UIImage(named: state)
-//                }
 
                
 
