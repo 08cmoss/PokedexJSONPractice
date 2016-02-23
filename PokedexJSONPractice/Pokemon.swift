@@ -10,28 +10,39 @@ import Foundation
 
 struct Pokemon {
     
-    private let kID = "id"
-    private let kName = "name"
-    private let kBaseEXP = "base_experience"
-    private let kHeight = "height"
-    private let kWeight = "weight"
-    
-    var id: String?
-    var name: String?
-    var baseExp: String?
-    var height: String?
-    var weight: String?
-    
+    let name: String
+    let id: Int
     
     init?(jsonDictionary: [String: AnyObject]){
-        guard let name = jsonDictionary[kName] as? String else { return nil }
-        self.id = jsonDictionary[kID] as? String ?? ""
+        guard let name = jsonDictionary["name"] as? String else { return nil }
         self.name = name
-        self.baseExp = jsonDictionary[kBaseEXP] as? String ?? ""
-        self.height = jsonDictionary[kHeight] as? String ?? ""
-        self.weight = jsonDictionary[kWeight] as? String ?? ""
+        self.id = (jsonDictionary["id"] as! Int)
+        
     }
     
+    
+//    private let kID = "id"
+//    private let kName = "name"
+//    private let kBaseEXP = "base_experience"
+//    private let kHeight = "height"
+//    private let kWeight = "weight"
+//    
+//    var id: String?
+//    var name: String?
+//    var baseExp: String?
+//    var height: String?
+//    var weight: String?
+//    
+//    
+//    init?(jsonDictionary: [String: AnyObject]){
+//        guard let name = jsonDictionary[kName] as? String else { return nil }
+//        self.id = jsonDictionary[kID] as? String ?? ""
+//        self.name = name
+//        self.baseExp = jsonDictionary[kBaseEXP] as? String ?? ""
+//        self.height = jsonDictionary[kHeight] as? String ?? ""
+//        self.weight = jsonDictionary[kWeight] as? String ?? ""
+//    }
+//    
 }
 
 
