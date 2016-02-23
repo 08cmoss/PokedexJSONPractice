@@ -14,6 +14,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var PokemonExperienceLabel: UILabel!
     @IBOutlet weak var pokemonHeightLabel: UILabel!
     @IBOutlet weak var pokemonWeightLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     
     var pokemon = Pokemon?()
     
@@ -31,11 +32,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
-                self.pokemonNameLabel.text = pokeResult.name
+                self.pokemonNameLabel.text = pokeResult.name.capitalizedString
                 self.pokemonIDLabel.text = "ID: \(pokeResult.id)"
-                self.PokemonExperienceLabel.text = "Exp: \(pokeResult.baseExp)"
+                self.PokemonExperienceLabel.text = "Experience: \(pokeResult.baseExp)"
                 self.pokemonHeightLabel.text = "Height: \(pokeResult.height)"
                 self.pokemonWeightLabel.text = "Weight: \(pokeResult.weight)"
+                self.imageView.image = UIImage(named: pokeResult.name)
+                
+                
+//                if let state = rep.state {
+//                    cell.imageView?.image = UIImage(named: state)
+//                }
+
+               
+
             })
             
         }
