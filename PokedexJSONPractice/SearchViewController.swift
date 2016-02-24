@@ -14,90 +14,64 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var PokemonExperienceLabel: UILabel!
     @IBOutlet weak var pokemonHeightLabel: UILabel!
     @IBOutlet weak var pokemonWeightLabel: UILabel!
+    @IBOutlet weak var pokemonImageView: UIImageView!
+    @IBOutlet weak var pokeSearchBar: UISearchBar!
+    @IBOutlet weak var pokeBallActivityImage: UIImageView!
+    
     
     var pokemon = Pokemon?()
+    
+    
+    
+    let boundRect = CGRectMake(0, 0, 1, 1)
+    
+    
+    func rotateBro() {
+        let rotateAnimate = CAKeyframeAnimation()
+        rotateAnimate.keyPath = "position"
+        rotateAnimate.path = CGPathCreateWithEllipseInRect(boundRect, nil)
+        rotateAnimate.duration = 4.0
+        rotateAnimate.additive = true
+        rotateAnimate.repeatCount = Float.infinity
+        rotateAnimate.calculationMode = kCAAnimationPaced
+        rotateAnimate.rotationMode = kCAAnimationRotateAuto
+        pokeBallActivityImage.layer.addAnimation(rotateAnimate, forKey: "rotate")
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        pokeSearchBar.returnKeyType = .Go
+        pokeBallActivityImage.hidden = true
+        
+        
     }
+    
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        rotateBro()
+        pokeBallActivityImage.hidden = false
+        
         guard let searchTerm = searchBar.text else { return }
         PokemonController.getPokemon(searchTerm) { (pokemon) -> Void in
             guard let pokeResult = pokemon else { return }
             
+            
+            
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                
-                self.pokemonNameLabel.text = pokeResult.name
+                self.pokeBallActivityImage.hidden = true
+                self.pokemonNameLabel.text = pokeResult.name.capitalizedString
                 self.pokemonIDLabel.text = "ID: \(pokeResult.id)"
                 self.PokemonExperienceLabel.text = "Exp: \(pokeResult.baseExp)"
                 self.pokemonHeightLabel.text = "Height: \(pokeResult.height)"
                 self.pokemonWeightLabel.text = "Weight: \(pokeResult.weight)"
+                self.pokemonImageView.image = UIImage(named: "\(pokeResult.id)")
             })
             
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // MARK: - Search stuff
-    
-    //        func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-    //            searchBar.resignFirstResponder()
-    //            let searchTerm = searchBar.text
-    //            PokemonController.getPokemonFromSearchTerm(searchTerm!) { (pokemon) -> Void in
-    //                self.pokemon = pokemon
-    //
-    //                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-    //                    self.pokemonNameLabel.text = pokemon?.name
-    //                    self.PokemonExperienceLabel.text = pokemon?.baseExp
-    //                    self.pokemonHeightLabel.text = pokemon?.height
-    //                    self.pokemonIDLabel.text = pokemon?.id
-    //                    self.pokemonWeightLabel.text = pokemon?.weight
-    //                })
-    //            }
-    //        }
-    
     
     /*
     // MARK: - Navigation
