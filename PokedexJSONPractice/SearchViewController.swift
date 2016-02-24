@@ -16,55 +16,43 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var pokemonWeightLabel: UILabel!
     @IBOutlet weak var pokemonImageView: UIImageView!
     @IBOutlet weak var pokeSearchBar: UISearchBar!
-    @IBOutlet weak var networkActivityIndicator: UIActivityIndicatorView!
-
-
+    @IBOutlet weak var pokeBallActivityImage: UIImageView!
+    
     
     var pokemon = Pokemon?()
     
     
     
-
+    let boundRect = CGRectMake(0, 0, 1, 1)
+    
+    
+    func rotateBro() {
+        let rotateAnimate = CAKeyframeAnimation()
+        rotateAnimate.keyPath = "position"
+        rotateAnimate.path = CGPathCreateWithEllipseInRect(boundRect, nil)
+        rotateAnimate.duration = 4.0
+        rotateAnimate.additive = true
+        rotateAnimate.repeatCount = Float.infinity
+        rotateAnimate.calculationMode = kCAAnimationPaced
+        rotateAnimate.rotationMode = kCAAnimationRotateAuto
+        pokeBallActivityImage.layer.addAnimation(rotateAnimate, forKey: "rotate")
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         pokeSearchBar.returnKeyType = .Go
-        networkActivityIndicator.hidesWhenStopped = true
-   
+        pokeBallActivityImage.hidden = true
+        
+        
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        print("didAppear")
-//        super.viewDidAppear(animated)
-//        
-//        
-//        let pokeballImageView = UIImageView(frame: CGRectMake(view.frame.size.width/2-100, view.frame.size.height/2-100, 200, 200))
-//        pokeballImageView.image = UIImage(named: "pokeball")
-//        view.addSubview(pokeballImageView)
-//        
-//        let boundRect = CGRectMake(0, 0, 1, 1)
-//        
-//        let rotateAnimate = CAKeyframeAnimation()
-//        rotateAnimate.keyPath = "position"
-//        rotateAnimate.path = CGPathCreateWithEllipseInRect(boundRect, nil)
-//        rotateAnimate.duration = 4.0
-//        rotateAnimate.additive = true
-//        rotateAnimate.repeatCount = Float.infinity
-//        rotateAnimate.calculationMode = kCAAnimationPaced
-//        rotateAnimate.rotationMode = kCAAnimationRotateAuto
-//        pokeballImageView.layer.addAnimation(rotateAnimate, forKey: "rotate")
-//        
-//
-//
-//    }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        self.networkActivityIndicator.startAnimating()
-//        self.pokeballImageView.hidden = false
-//        self.pokeballImageView.startAnimating()
+        rotateBro()
+        pokeBallActivityImage.hidden = false
         
         guard let searchTerm = searchBar.text else { return }
         PokemonController.getPokemon(searchTerm) { (pokemon) -> Void in
@@ -73,9 +61,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
             
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                self.networkActivityIndicator.stopAnimating()
-//                self.pokeballImageView.stopAnimating()
-//                self.pokeballImageView.hidden = true
+                self.pokeBallActivityImage.hidden = true
                 self.pokemonNameLabel.text = pokeResult.name.capitalizedString
                 self.pokemonIDLabel.text = "ID: \(pokeResult.id)"
                 self.PokemonExperienceLabel.text = "Exp: \(pokeResult.baseExp)"
@@ -86,34 +72,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
             
         }
     }
- 
-//    
-//    let satelliteImageView = UIImageView(frame: CGRectMake(157, 515, 50, 50))
-//    satelliteImageView.image = UIImage(named: "satellite")
-//    view.addSubview(satelliteImageView)
-//    
-//    let boundRect = CGRectMake(-60, -60, 170, 170)
-//    
-//    let orbitAnimation = CAKeyframeAnimation()
-//    orbitAnimation.keyPath = "position"
-//    orbitAnimation.path = CGPathCreateWithEllipseInRect(boundRect, nil)
-//    orbitAnimation.duration = 4.0
-//    orbitAnimation.additive = true
-//    orbitAnimation.repeatCount = Float.infinity
-//    orbitAnimation.calculationMode = kCAAnimationPaced
-//    orbitAnimation.rotationMode = kCAAnimationRotateAuto
-//    
-//    satelliteImageView.layer.addAnimation(orbitAnimation, forKey: "orbit")
-//    
-//    
-//    satelliteImageView.animationImages = [UIImage(named: "satellite")!, UIImage(named: "satellite1")!, UIImage(named: "satellite2")!, UIImage(named: "satellite3")!]
-//    satelliteImageView.animationDuration = 2.0
-//    satelliteImageView.animationRepeatCount = Int.max
-//    satelliteImageView.startAnimating()
-    
-    
-
-    
     
     /*
     // MARK: - Navigation
