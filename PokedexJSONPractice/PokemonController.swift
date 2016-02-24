@@ -10,7 +10,7 @@ import Foundation
 
 class PokemonController: NSObject {
     
-
+    
     static let kBaseURL = "http://pokeapi.co/api/v2/pokemon/"
     
     static func getPokemon(searchTerm: String, completion: (pokemon: Pokemon?) -> Void) {
@@ -38,7 +38,6 @@ class PokemonController: NSObject {
             }
         }
     }
-    
     
 }
 
